@@ -18,7 +18,7 @@ const SYSTEM_PROMPT = [
 
 // The SDK owns the protocol, but Coach still owns the process boundary: its native runtime is
 // launched as the same unprivileged `coach` user as the older CLI adapter.
-function spawnAsCoach({ command, args, cwd, env, signal }) {
+export function spawnAsCoach({ command, args, cwd, env, signal }) {
   const ids = unprivilegedIds();
   return spawn(command, args, { cwd, env, signal, stdio: ['pipe', 'pipe', 'pipe'], ...(ids || {}) });
 }

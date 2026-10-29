@@ -304,6 +304,8 @@ export default {
   'Equipment': 'Equipo',
   'Recovery': 'Recuperación',
   'Any equipment': 'Cualquier equipo',
+  'Machines': 'Máquinas',
+  'View on manufacturer site': 'Ver en el sitio del fabricante',
   'assisted': 'asistido', 'band': 'banda', 'barbell': 'barra', 'body weight': 'peso corporal',
   'bosu ball': 'bosu', 'cable': 'polea', 'dumbbell': 'mancuerna',
   'elliptical machine': 'elíptica', 'ez barbell': 'barra EZ', 'hammer': 'martillo',

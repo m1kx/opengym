@@ -304,6 +304,8 @@ export default {
   'Equipment': 'उपकरण',
   'Recovery': 'रिकवरी',
   'Any equipment': 'कोई भी उपकरण',
+  'Machines': 'मशीनें',
+  'View on manufacturer site': 'निर्माता की साइट पर देखें',
   'assisted': 'सहायता प्राप्त', 'band': 'बैंड', 'barbell': 'बारबेल', 'body weight': 'शरीर का वज़न',
   'bosu ball': 'बोसु बॉल', 'cable': 'केबल', 'dumbbell': 'डम्बल',
   'elliptical machine': 'एलिप्टिकल मशीन', 'ez barbell': 'EZ बारबेल', 'hammer': 'हैमर',

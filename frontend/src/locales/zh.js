@@ -304,6 +304,8 @@ export default {
   'Equipment': '器械',
   'Recovery': '恢复',
   'Any equipment': '所有器械',
+  'Machines': '器械',
+  'View on manufacturer site': '在制造商网站查看',
   'assisted': '辅助', 'band': '弹力带', 'barbell': '杠铃', 'body weight': '自重',
   'bosu ball': '波速球', 'cable': '绳索', 'dumbbell': '哑铃',
   'elliptical machine': '椭圆机', 'ez barbell': '曲杆杠铃', 'hammer': '锤',

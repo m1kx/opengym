@@ -14,9 +14,10 @@ export default function Library() {
   const [q, setQ] = useState('')
   const [bp, setBp] = useState('')
   const [eq, setEq] = useState('')
+  const hasMachines = useStore(s => s.machines.length > 0)
   const [shown, setShown] = useState(40)
   const ql = q.toLowerCase().trim()
-  const base = allExercises(S).filter(e => (!bp || e.bp === bp) && (!ql || e.n.toLowerCase().includes(ql) || e.tg.includes(ql) || e.eq.includes(ql) || (e.desc || '').toLowerCase().includes(ql)))
+  const base = allExercises(S).filter(e => (bp === 'machines' ? e.machine : (!bp || e.bp === bp)) && (!ql || e.n.toLowerCase().includes(ql) || e.tg.includes(ql) || e.eq.includes(ql) || (e.desc || '').toLowerCase().includes(ql)))
   const eqOpts = equipmentOf(base)
   // Drop the equipment filter if the search narrowed it away, so you never hit a dead end.
   const eqOn = eqOpts.includes(eq) ? eq : ''
@@ -28,6 +29,7 @@ export default function Library() {
       <input className="input" placeholder={t('Search…')} value={q} onChange={e => { setQ(e.target.value); setShown(40) }} /></div>
     <div className="chips" style={{ marginBottom: eqOpts.length > 1 ? 8 : 12 }}>
       <button className={'chip nocap' + (!bp ? ' on' : '')} onClick={() => { setBp(''); setEq(''); setShown(40) }}>{t('All')}</button>
+      {hasMachines && <button className={'chip' + (bp === 'machines' ? ' on' : '')} onClick={() => { setBp('machines'); setEq(''); setShown(40) }}>{t('Machines')}</button>}
       {BODYPARTS.map(b => <button key={b} className={'chip' + (bp === b ? ' on' : '')} onClick={() => { setBp(b); setEq(''); setShown(40) }}>{t(b)}</button>)}
     </div>
     {eqOpts.length > 1 && <div className="chips" style={{ marginBottom: 12 }}>

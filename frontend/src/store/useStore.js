@@ -1,7 +1,7 @@
 import { create } from 'zustand'
 import { api } from '../lib/api.js'
 import { localTZ } from '../lib/format.js'
-import { registerCustom } from '../lib/exercises.js'
+import { registerCustom, registerMachines } from '../lib/exercises.js'
 import { DEMO, DEMO_SEEDED } from '../lib/demo.js'
 import { MOBILE, nativeLoad, nativeSave, syncReminder } from '../lib/mobile.js'
 
@@ -21,6 +21,9 @@ export const DEF = {
   // bounds live in lib/coach.js.
   coach: null
 }
+// Last machine list from the server, so ids in saved workouts resolve before the fetch lands.
+const MKEY = 'gym_machines_v1'
+const cachedMachines = () => { try { return JSON.parse(localStorage.getItem(MKEY)) || [] } catch { return [] } }
 const clone = o => JSON.parse(JSON.stringify(o))
 
 function loadState() {
@@ -87,6 +90,9 @@ export const useStore = create((set, get) => {
     S: (() => { const s = loadState(); registerCustom(s.customEx); return s })(),
     user: (() => { try { return JSON.parse(localStorage.getItem('gym_user')) || null } catch { return null } })(),
     ready: false,
+    // Instance-wide gym machines (admin-imported). Lives in exercises.js; kept here so
+    // components that read the catalogue re-render when the list changes.
+    machines: (() => { const m = DEMO || MOBILE ? [] : cachedMachines(); registerMachines(m); return m })(),
     // Instance capabilities from GET /api/config. `config.coach` is present only when the
     // owner has both enabled the Coach and connected a provider — every Coach entry point in
     // the app hangs off it, so an unconfigured instance renders exactly what it always did.
@@ -127,6 +133,16 @@ export const useStore = create((set, get) => {
           persist(next, false)
         } else if (hasData(S)) { await get().pushState() }
       } catch (e) { /* offline — keep local */ }
+    },
+
+    async loadMachines() {
+      if (DEMO || MOBILE) return
+      try {
+        const { machines } = await api('/api/machines')
+        registerMachines(machines)
+        try { localStorage.setItem(MKEY, JSON.stringify(machines)) } catch { /* quota */ }
+        set({ machines })
+      } catch (e) { /* offline or no server — keep whatever we have */ }
     },
 
     async signOut() {

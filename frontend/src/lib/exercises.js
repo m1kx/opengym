@@ -23,16 +23,26 @@ export function registerCustom(list) {
   customIds = (list || []).map(e => e.id)
   ;(list || []).forEach(e => { EXIDX[e.id] = e })
 }
+// Instance-wide gym machines (GET /api/machines, imported by an admin) — same shape as any
+// exercise plus `machine: true`. Not part of synced state: they belong to the server.
+let machines = []
+export function registerMachines(list) {
+  machines.forEach(e => { delete EXIDX[e.id] })
+  machines = list || []
+  machines.forEach(e => { EXIDX[e.id] = e })
+}
 // Full searchable catalogue — customs first so your own exercises are easy to find.
-export const allExercises = st => [...(st.customEx || []), ...EXDB]
+export const allExercises = st => [...(st.customEx || []), ...machines, ...EXDB]
 
 // Media normally sits next to the app (img/ and gif/, mounted into the web container).
 // A build can point them somewhere else — the demo build pulls them off a CDN instead of
 // shipping ~140 MB of images into the deployment.
 const IMG_BASE = import.meta.env.VITE_IMG_BASE || 'img/'
 const GIF_BASE = import.meta.env.VITE_GIF_BASE || 'gif/'
-export const imgSrc = ex => IMG_BASE + ex.img
-export const gifSrc = ex => GIF_BASE + ex.gif
+// Machine images are absolute URLs on the manufacturer's site; pass them through.
+const abs = p => /^https?:\/\//.test(p)
+export const imgSrc = ex => abs(ex.img) ? ex.img : IMG_BASE + ex.img
+export const gifSrc = ex => abs(ex.gif) ? ex.gif : GIF_BASE + ex.gif
 
 // Cardio exercises log time + speed instead of weight × reps.
 export const isCardio = idOrEx => (typeof idOrEx === 'string' ? EXIDX[idOrEx] : idOrEx)?.bp === 'cardio'

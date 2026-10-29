@@ -321,6 +321,8 @@ export default {
   'Equipment': 'Geräte',
   'Recovery': 'Erholung',
   'Any equipment': 'Alle Geräte',
+  'Machines': 'Geräte',
+  'View on manufacturer site': 'Beim Hersteller ansehen',
   'assisted': 'assistiert', 'band': 'Band', 'barbell': 'Langhantel', 'body weight': 'Körpergewicht',
   'bosu ball': 'Bosu-Ball', 'cable': 'Kabelzug', 'dumbbell': 'Kurzhantel',
   'elliptical machine': 'Crosstrainer', 'ez barbell': 'SZ-Stange', 'hammer': 'Hammer',

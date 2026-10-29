@@ -304,6 +304,8 @@ export default {
   'Equipment': 'Équipement',
   'Recovery': 'Récupération',
   'Any equipment': 'Tout équipement',
+  'Machines': 'Machines',
+  'View on manufacturer site': 'Voir sur le site du fabricant',
   'assisted': 'assisté', 'band': 'élastique', 'barbell': 'barre', 'body weight': 'poids du corps',
   'bosu ball': 'bosu', 'cable': 'poulie', 'dumbbell': 'haltère',
   'elliptical machine': 'vélo elliptique', 'ez barbell': 'barre EZ', 'hammer': 'marteau',

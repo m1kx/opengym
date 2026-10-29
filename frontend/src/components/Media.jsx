@@ -13,7 +13,9 @@ export default function Media({ ex, id, compact, minimizable }) {
   const [playing, setPlaying] = useState(true)
   const gifSize = useStore(s => s.S.gifSize)
   const update = useStore(s => s.update)
-  if (!ex.gif) return null
+  if (!ex.gif && !ex.img) return null
+  // A machine has a single photo, no animation: show it as a still.
+  if (!ex.gif) return <div className={'exmedia' + (compact ? ' compact' : '')} id={id}><img decoding="async" src={imgSrc(ex)} alt={ex.n} /></div>
   const mini = minimizable && gifSize === 'mini'
   const toggleSize = e => { e.stopPropagation(); update(s => { s.gifSize = mini ? 'full' : 'mini' }) }
   return (

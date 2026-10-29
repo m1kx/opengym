@@ -304,6 +304,8 @@ export default {
   'Equipment': 'Ekipman',
   'Recovery': 'Toparlanma',
   'Any equipment': 'Tüm ekipmanlar',
+  'Machines': 'Makineler',
+  'View on manufacturer site': 'Üretici sitesinde gör',
   'assisted': 'destekli', 'band': 'bant', 'barbell': 'halter', 'body weight': 'vücut ağırlığı',
   'bosu ball': 'bosu topu', 'cable': 'kablo', 'dumbbell': 'dambıl',
   'elliptical machine': 'eliptik bisiklet', 'ez barbell': 'EZ bar', 'hammer': 'çekiç',

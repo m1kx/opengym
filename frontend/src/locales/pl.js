@@ -304,6 +304,8 @@ export default {
   'Equipment': 'Sprzęt',
   'Recovery': 'Regeneracja',
   'Any equipment': 'Dowolny sprzęt',
+  'Machines': 'Maszyny',
+  'View on manufacturer site': 'Zobacz na stronie producenta',
   'assisted': 'z asystą', 'band': 'guma', 'barbell': 'sztanga', 'body weight': 'masa ciała',
   'bosu ball': 'bosu', 'cable': 'wyciąg', 'dumbbell': 'hantla',
   'elliptical machine': 'orbitrek', 'ez barbell': 'sztanga łamana', 'hammer': 'młot',

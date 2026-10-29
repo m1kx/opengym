@@ -304,6 +304,8 @@ export default {
   'Equipment': '장비',
   'Recovery': '회복',
   'Any equipment': '모든 장비',
+  'Machines': '머신',
+  'View on manufacturer site': '제조사 사이트에서 보기',
   'assisted': '보조', 'band': '밴드', 'barbell': '바벨', 'body weight': '맨몸',
   'bosu ball': '보수볼', 'cable': '케이블', 'dumbbell': '덤벨',
   'elliptical machine': '일립티컬', 'ez barbell': 'EZ바', 'hammer': '해머',

@@ -294,6 +294,7 @@ function ExerciseDetail({ ex, close }) {
       {(ex.sm || []).slice(0, 3).map((s, i) => <span key={i} className="tag">{t(s)}</span>)}
     </div>
     {ex.desc && <div className="exnote">{ex.desc}</div>}
+    {ex.machine && ex.url && <a className="small" href={ex.url} target="_blank" rel="noopener noreferrer">{t('View on manufacturer site')}</a>}
     {best > 0 && <div className="small row" style={{ marginBottom: 6, gap: 5 }}><Icon name="trophy" style={{ fontSize: 14, color: 'var(--yellow)' }} />{t('Best:')} <b className="accent">{fmtNum(best)} {st.unit}</b>{last ? ` · ${t('last')} ${fmtDate(last.d)}: ${last.sets.map(s => setLabel(ex.id, s, last.target)).join(', ')}` : ''}</div>}
     <Button variant="primary" icon="plus" style={{ margin: '10px 0 4px' }} onClick={() => addToRoutineSheet(ex)}>{t('Add to my plan')}</Button>
     {ex.custom && <div className="row" style={{ gap: 8, marginTop: 8 }}>
@@ -412,13 +413,14 @@ function ExercisePicker({ onPick, close }) {
   const st = useStore(s => s.S)
   const usage = usageMap(st)
   const [q, setQ] = useState('')
-  const [bp, setBp] = useState('')          // '' = all, '★' = chosen, else a body part
+  const [bp, setBp] = useState('')          // '' = all, '★' = chosen, 'machines', else a body part
+  const hasMachines = useStore(s => s.machines.length > 0)
   const [eq, setEq] = useState('')          // '' = any equipment
   const [shown, setShown] = useState(50)
   const ql = q.toLowerCase().trim()
   const all = allExercises(st)
   let base = all.filter(e =>
-    (bp === '★' ? usage[e.id] : (!bp || e.bp === bp)) &&
+    (bp === '★' ? usage[e.id] : bp === 'machines' ? e.machine : (!bp || e.bp === bp)) &&
     (!ql || e.n.toLowerCase().includes(ql) || e.tg.includes(ql) || e.eq.includes(ql) || (e.desc || '').toLowerCase().includes(ql)))
   if (bp === '★') base = [...base].sort((a, b) => (usage[b.id] - usage[a.id]) || (a.n < b.n ? -1 : 1))
   const eqOpts = equipmentOf(base)
@@ -433,6 +435,7 @@ function ExercisePicker({ onPick, close }) {
     <div className="chips" style={{ margin: eqOpts.length > 1 ? '10px 0 6px' : '10px 0' }}>
       {chosenCount > 0 && <button className={'chip' + (bp === '★' ? ' on' : '')} onClick={() => { setBp('★'); setEq(''); setShown(50) }}><Icon name="starFill" style={{ fontSize: 12, display: 'inline-block', marginRight: 4, verticalAlign: '-1px' }} />{t('Chosen')} ({chosenCount})</button>}
       <button className={'chip nocap' + (!bp ? ' on' : '')} onClick={() => { setBp(''); setEq(''); setShown(50) }}>{t('All')}</button>
+      {hasMachines && <button className={'chip' + (bp === 'machines' ? ' on' : '')} onClick={() => { setBp('machines'); setEq(''); setShown(50) }}>{t('Machines')}</button>}
       {BODYPARTS.map(b => <button key={b} className={'chip' + (bp === b ? ' on' : '')} onClick={() => { setBp(b); setEq(''); setShown(50) }}>{t(b)}</button>)}
     </div>
     {eqOpts.length > 1 && <div className="chips" style={{ marginBottom: 10 }}>

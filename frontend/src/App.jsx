@@ -43,6 +43,8 @@ function Shell() {
   const loc = useLocation()
   const { S, user, ready } = useStore()
   const isGuest = useStore(s => s.isGuest())
+  const loadMachines = useStore(s => s.loadMachines)
+  useEffect(() => { if (user) loadMachines() }, [user, loadMachines])
   const langV = useLang()   // re-renders the whole shell when the language (pack) changes
   useEffect(() => { setNav(navigate) }, [navigate])
   useEffect(() => { applyPrefs(S.theme, S.accent) }, [S.theme, S.accent])
